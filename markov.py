@@ -46,9 +46,13 @@ def make_chains(text_string):
 
     for i in range(len(words) - 1):
         word_pair = words[i], words[i + 1]
-        print word_pair
+        if word_pair not in chains:
+            chains[word_pair] = []
+        
+    #if words[i + 2] not in chains[word_pair]:
+        #chains[word_pair].append(words[i + 2])
 
-    #chains[]
+    print chains
     
     return chains
 
