@@ -44,21 +44,13 @@ def make_chains(text_string):
     words = text_string.split()
     word_pair = ()
 
-    for i in range(len(words) - 1):
+    for i in range(len(words) - 2):
         word_pair = words[i], words[i + 1]
-        if words[i] in [words[len(words) - 2], words[len(words) - 3]]:
-            break
-        elif word_pair not in chains:
+        if word_pair not in chains:
             chains[word_pair] = [words[i + 2]]
         else:
             chains[word_pair].append(words[i + 2])
 
-    # for i in range(len(words) -1):
-    #     if words[i + 2] not in chains[word_pair]:
-    #         chains[word_pair].append(words[i + 2])
-
-    print chains
- 
     return chains
 
 
@@ -66,8 +58,25 @@ def make_text(chains):
     """Returns text from chains."""
 
     words = []
+    #new_key = ""
+    new_value = ""
 
     # your code goes here
+    key = ("Would", "you")
+    words.append(key)
+
+    while True:
+        if key in chains:
+            #words.append(key)
+            new_value = choice(chains[key])
+            words.append(new_value)
+            key = (key[1], new_value)
+            #print key
+        else:
+            break
+
+    #print words
+    #print make_text(chains)
 
     return " ".join(words)
 
