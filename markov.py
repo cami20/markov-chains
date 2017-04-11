@@ -15,7 +15,6 @@ def open_and_read_file(file_path):
 
     return text_file
 
-print open_and_read_file("green-eggs.txt")
 
 def make_chains(text_string):
     """Takes input text as string; returns dictionary of markov chains.
@@ -42,7 +41,15 @@ def make_chains(text_string):
     chains = {}
 
     # your code goes here
+    words = text_string.split()
+    word_pair = ()
 
+    for i in range(len(words) - 1):
+        word_pair = words[i], words[i + 1]
+        print word_pair
+
+    #chains[]
+    
     return chains
 
 
