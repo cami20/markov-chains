@@ -52,7 +52,7 @@ def make_chains(text_string):
         else:
             chains[word_pair].append(words[i + 3])
 
-    print chains
+    return chains
 
 
 def make_text(chains):
@@ -63,18 +63,15 @@ def make_text(chains):
     # your code goes here
     key = choice(chains.keys())
 
-    # print key
-    # print key[0].istitle()
-
-    # while not key[0].istitle():
-    #     key = choice(chains.keys())
+    while not key[0].istitle():
+        key = choice(chains.keys())
 
     words.append(" ".join((key)))
 
     while key in chains:
             new_value = choice(chains[key])
             words.append(new_value)
-            key = (key[1], new_value)
+            key = (key[1], key[2], new_value)
 
 
     return " ".join(words)
