@@ -62,6 +62,13 @@ def make_text(chains):
     new_value = ""
     # your code goes here
     key = choice(chains.keys())
+    
+    # print key
+    # print key[0].istitle()
+
+    while not key[0].istitle():
+        key = choice(chains.keys())
+
     words.append(" ".join((key)))
 
     while key in chains:
