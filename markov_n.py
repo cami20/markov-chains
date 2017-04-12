@@ -39,20 +39,29 @@ def make_chains(text_string):
         ['mary', 'juanita']
     """
 
+    n = raw_input("How many words would you like in your n-gram? ")
+    n = int(n)
+    counter = 1
     chains = {}
 
     # your code goes here
     words = text_string.split()
-    word_pair = ()
+    word_pair = []
 
-    for i in range(len(words) - 3):
-        word_pair = words[i], words[i + 1], words[i + 2]
+    for i in range(len(words) - n):
+        word_pair.append(words[i])
+        while counter < n:
+            word_pair.append(words[i + counter])
+            counter = counter + 1
+
+        word_pair = tuple(word_pair)
+
         if word_pair not in chains:
-            chains[word_pair] = [words[i + 3]]
+            chains[word_pair] = [words[i + n]]
         else:
-            chains[word_pair].append(words[i + 3])
+            chains[word_pair].append(words[i + n])
 
-    return chains
+    print chains
 
 
 def make_text(chains):
@@ -71,8 +80,11 @@ def make_text(chains):
     while key in chains:
             new_value = choice(chains[key])
             words.append(new_value)
-            key = (key[1], key[2], new_value)
-
+            #key = (key[1:], new_value)
+            key = list(key)
+            key = key[1:]
+            key.append(new_value)
+            key = tuple(key)
 
     return " ".join(words)
 
