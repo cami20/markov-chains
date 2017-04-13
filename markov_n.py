@@ -46,22 +46,18 @@ def make_chains(text_string):
 
     # your code goes here
     words = text_string.split()
-    word_pair = []
+    word_group = []
 
     for i in range(len(words) - n):
-        word_pair.append(words[i])
-        while counter < n:
-            word_pair.append(words[i + counter])
-            counter = counter + 1
+        word_group = words[i:n + i]
+        word_group = tuple(word_group)
 
-        word_pair = tuple(word_pair)
-
-        if word_pair not in chains:
-            chains[word_pair] = [words[i + n]]
+        if word_group not in chains:
+            chains[word_group] = [words[i + n]]
         else:
-            chains[word_pair].append(words[i + n])
+            chains[word_group].append(words[i + n])
 
-    print chains
+    return chains
 
 
 def make_text(chains):
@@ -78,13 +74,13 @@ def make_text(chains):
     words.append(" ".join((key)))
 
     while key in chains:
-            new_value = choice(chains[key])
-            words.append(new_value)
-            #key = (key[1:], new_value)
-            key = list(key)
-            key = key[1:]
-            key.append(new_value)
-            key = tuple(key)
+        new_value = choice(chains[key])
+        words.append(new_value)
+        #key = (key[1:], new_value)
+        key = list(key)
+        key = key[1:]
+        key.append(new_value)
+        key = tuple(key)
 
     return " ".join(words)
 
