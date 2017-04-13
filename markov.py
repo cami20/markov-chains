@@ -3,7 +3,16 @@
 
 from random import choice
 import sys
+import twitter
+import os
 
+
+api = twitter.Api(consumer_key=os.environ['TWITTER_CONSUMER_KEY'],
+                  consumer_secret=os.environ['TWITTER_CONSUMER_SECRET'],
+                  access_token_key=os.environ['TWITTER_ACCESS_TOKEN_KEY'],
+                  access_token_secret=os.environ['TWITTER_ACCESS_TOKEN_SECRET'])
+
+#print(api.VerifyCredentials())
 
 def open_and_read_file(file_path):
     """Takes file path as string; returns text as string.
@@ -66,16 +75,19 @@ def make_text(chains):
     # print key
     # print key[0].istitle()
 
+    #pass
     while not key[0].istitle():
         key = choice(chains.keys())
 
     words.append(" ".join((key)))
 
     while key in chains:
-            new_value = choice(chains[key])
+        new_value = choice(chains[key])
+        if sum([len(i) + 1 for i in words]) + len(new_value) < 140:
             words.append(new_value)
             key = (key[1], new_value)
-
+        else:
+            break
 
     return " ".join(words)
 
@@ -88,7 +100,12 @@ input_text = open_and_read_file(input_path)
 # Get a Markov chain
 chains = make_chains(input_text)
 
-# Produce random text
-random_text = make_text(chains)
 
-print random_text
+tweet_choice = raw_input("Would you like to tweet? (y/n) ")
+
+while tweet_choice == 'y':
+    # Produce random text
+    random_text = make_text(chains)
+    status = api.PostUpdate(random_text)
+    print status.text
+    tweet_choice = raw_input("Would you like to tweet again? (y/n) ")
