@@ -14,7 +14,7 @@ api = twitter.Api(consumer_key=os.environ['TWITTER_CONSUMER_KEY'],
 
 #print(api.VerifyCredentials())
 
-def open_and_read_file(file_path):
+def open_and_read_file(file_path, file_path2):
     """Takes file path as string; returns text as string.
 
     Takes a string that is a file path, opens the file, and turns
@@ -22,8 +22,11 @@ def open_and_read_file(file_path):
     """
 
     text_file = open(file_path).read()
+    text_file2 = open(file_path2).read()
 
-    return text_file
+    full_text_file = text_file + " " + text_file2
+
+    return full_text_file
 
 
 def make_chains(text_string):
@@ -93,9 +96,9 @@ def make_text(chains):
 
 
 input_path = sys.argv[1]
-
+input_path2 = sys.argv[2]
 # Open the file and turn it into one long string
-input_text = open_and_read_file(input_path)
+input_text = open_and_read_file(input_path, input_path2)
 
 # Get a Markov chain
 chains = make_chains(input_text)

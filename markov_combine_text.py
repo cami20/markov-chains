@@ -17,7 +17,7 @@ def open_and_read_file(file_path, file_path2):
 
     full_text_file = text_file + " " + text_file2
 
-    return full_text_file
+    return full_text_files
 
 
 def make_chains(text_string):
